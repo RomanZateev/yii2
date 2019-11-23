@@ -9,9 +9,16 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Lichnost;
+use app\models\Document;
+use yii\db\ActiveRecord;
 
 class SiteController extends Controller
 {
+
+    public $personClass = 'app\models\Person';
+
+    public $documentClass = 'app\models\Document';
     /**
      * {@inheritdoc}
      */
@@ -61,7 +68,12 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $people = Lichnost::find()
+        ->all();
+
+        return $this->render('index', [
+            'people' => $people,
+        ]);
     }
 
     /**
@@ -124,5 +136,12 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function userdocuments($id)
+    {
+        return $this->render('index', [
+            'people' => $id,
+        ]);
     }
 }

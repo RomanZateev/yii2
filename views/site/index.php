@@ -1,53 +1,59 @@
 <?php
 
+use yii\helpers\Html;
+
 /* @var $this yii\web\View */
 
 $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
-
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
-
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
-
     <div class="body-content">
-
         <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-            </div>
+            <h2>Работники</h2>
+            <p>
+                <?= Html::a('Добавить', ['lichnost/new'], ['class'=>'btn btn-lg btn-success']) ?>
+            </p>
         </div>
-
+        <div class="row">
+            <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Фамилия</th>
+                    <th>Имя</th>
+                    <th>Отчество</th>
+                    <th>Дата рождения</th>
+                    <th>Пол</th>
+                    <th></th>
+                </tr>
+            </thead>
+                <tbody>
+                    <?php foreach ($people as $man) {?>
+                    <tr>
+                        <td><?php echo $man->Familiya; ?></td>
+                        <td><?php echo $man->Imya; ?></td>
+                        <td>
+                            <?php 
+                                if ($man->Otchestvo)
+                                    echo $man->Otchestvo;
+                                else
+                                    echo "-";
+                            ?>
+                        </td>
+                        <td><?php echo $man->Data_rojdenya; ?></td>
+                        <td>
+                            <?php 
+                                echo $man->Pol;
+                            ?>
+                        </td>
+                        <td>
+                            <?= Html::a('', ['api/lichnost'], ['class'=>'glyphicon glyphicon-eye-open'], ['data-method' => 'POST']) ?>
+                            <?= Html::a('', ['user/useredit', 'id' => $man['idLichnost']], ['class'=>'glyphicon glyphicon-pencil']) ?>
+                            <?= Html::a('', ['user/userdelete', 'id' => $man['idLichnost']], ['class'=>'glyphicon glyphicon-remove']) ?>
+                        </td>
+                        <?php }?>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
